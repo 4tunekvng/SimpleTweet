@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    >
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -40,10 +42,19 @@
         android:id="@+id/tvTweetTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBody"
-        android:layout_alignStart="@+id/tvBody"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="2dp"
+        android:layout_below="@+id/ivTweetImage"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="284dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
         android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/ivTweetImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="10dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>

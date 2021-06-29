@@ -17,13 +17,33 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String tweetTime;
+    public JSONObject entities;
+    private boolean hasMedia;
+    public ArrayList<Object> embeddedImages;
+    public Object firstEmbeddedImage;
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-        tweet.body = jsonObject.getString("text");
+        tweet.body = jsonObject.getString("full_text");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         tweet.tweetTime= getRelativeTimeAgo(tweet.createdAt);
+        tweet.entities = jsonObject.getJSONObject("entities");
+        if (tweet.entities.has("media") ) {
+            JSONArray media = tweet.entities.getJSONArray("media");
+            tweet.hasMedia = true;
+            tweet.embeddedImages = new ArrayList<>();
+            for (int i = 0; i < media.length(); i++) {
+                tweet.embeddedImages.add(media.getJSONObject(i).getString("media_url_https"));
+            }
+            tweet.firstEmbeddedImage = tweet.embeddedImages.get(0);
+        }
+        else {
+            tweet.hasMedia = false;
+            tweet.embeddedImages = new ArrayList<>();
+
+        }
+
         return tweet;
     }
 
