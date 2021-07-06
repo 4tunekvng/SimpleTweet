@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     Button btLogOut;
     private SwipeRefreshLayout swipeContainer;
+    FloatingActionButton compose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +74,13 @@ public class TimelineActivity extends AppCompatActivity {
         Log.i("what", "what is going on"+tweets);
         populateHomeTimeline();
 
-        btLogOut = findViewById(R.id.btLogOut);
-        btLogOut.setOnClickListener(new View.OnClickListener(){
+
+        compose = findViewById(R.id.compose);
+        compose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                client.clearAccessToken(); // forget who's logged in
-                finish(); // navigate backwards to Login screen
-
+                Intent intent = new Intent(adapter.context, ComposeActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -93,12 +95,11 @@ public class TimelineActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.compose){
+        if (item.getItemId() == R.id.btnLogOut){
             // compose icon has been selected
             // Navigate to the compose activity
-            Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
-            return true;
+            client.clearAccessToken(); // forget who's logged in
+            finish(); // navigate backwards to Login screen
         }
         return super.onOptionsItemSelected(item);
     }

@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
     }
 }
 
@@ -16,4 +16,6 @@ allprojects {
     }
 }
 
+
+// This config only works for Android Gradle Plugin v2.1.0 or higher:
 
